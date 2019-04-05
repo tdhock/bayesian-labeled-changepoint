@@ -1,0 +1,20 @@
+** TODOs
+
+- Plot distribution of predicted penalties, this should be possible
+  with survreg.
+
+** 5 Apr 2019
+
+Read articles about interval-censored bayesian regression models with
+R packages but no regularization.
+- JSS, Frequentist icenReg::ic_par, similar to survival::survreg https://www.jstatsoft.org/article/view/v081i12
+- R Journal, Bayesian icenReg::ic_bayes https://journal.r-project.org/archive/2017/RJ-2017-050/index.html
+- JSS, flexsurv pkg allows user-specified distributions
+  https://www.jstatsoft.org/article/view/v070i08
+
+Wrote some code to verify that the coefs/predictions are all more or
+less the same, [[file:icenReg-flexsurv.R]]
+
+reported issues 
+- [[file:flexsurv-bug.R]], https://github.com/chjackson/flexsurv-dev/issues/62
+- [[file:icenReg-bug.R]], https://github.com/pistacliffcho/icenReg_devel/issues/4
