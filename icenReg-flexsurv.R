@@ -2,6 +2,7 @@ works_with_R(
   "3.5.1",
   data.table="1.11.8",
   icenReg="2.0.9",
+  DPpackage="1.0",
   flexsurv="1.0",
   penaltyLearning="2018.9.4")
 library(survival)
@@ -50,6 +51,21 @@ fit.flex <- flexsurv::flexsurvreg(
   Surv(exp(min.L), exp(max.L), type="interval2") ~ log.n + log.hall,
   data=train.dt,
   dist="lnorm")
+
+## DPsurvint np-bayesian: error Lapack routine dgesv: system is
+## exactly singular: U[1,1] = 0
+fit.dp <- train.dt[, DPpackage::DPsurvint(
+  cbind(
+    ifelse(min.L==-Inf, -999, min.L),
+    ifelse(max.L==Inf, -999, max.L)
+  ) ~ log.n + log.hall,
+  mcmc=list(
+    nburn=20000,nsave=10000,nskip=10,
+    ndisplay=100,tune=0.125),
+  prior=list(
+    alpha=1,beta0=rep(0,2),Sbeta0=diag(1000,2),
+    m0=0,s0=1,tau1=0.01,tau2=0.01),
+  status=TRUE)]
 
 rbind(
   icenReg.bayes=log(imputeCens(fit.bayes, test.dt, imputeType="median")),

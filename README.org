@@ -18,3 +18,4 @@ less the same, [[file:icenReg-flexsurv.R]]
 reported issues 
 - [[file:flexsurv-bug.R]], https://github.com/chjackson/flexsurv-dev/issues/62
 - [[file:icenReg-bug.R]], https://github.com/pistacliffcho/icenReg_devel/issues/4
+- [[file:DPpackage-bug.R]] emailed maintainer, atjara@uc.cl
