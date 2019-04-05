@@ -1,12 +1,18 @@
 works_with_R(
   "3.5.1",
   data.table="1.11.8",
-  icenReg="2.0.9",
-  DPpackage="1.0",
-  flexsurv="1.0",
+  ##icenReg="2.0.9",
+  coda="0.19.2",
+  MLEcens="0.1.4",
+  DPpackage="1.1.7.4",
+  flexsurv="1.1.1",
   penaltyLearning="2018.9.4")
 library(survival)
-
+requireGitHub::requireGitHub_package(
+  "pistacliffcho",
+  "icenReg_devel/Code/icenReg",
+  "d43ca5c15b38d333cc720fbaeaf3ccaf89898b34",
+  "icenReg")
 data(neuroblastomaProcessed, package="penaltyLearning")
 
 X.mat <- neuroblastomaProcessed$feature.mat[, c("log.n", "log.hall")]
@@ -50,6 +56,7 @@ rbind(coef(fit.bayes), coef(fit.par))
 fit.flex <- flexsurv::flexsurvreg(
   Surv(exp(min.L), exp(max.L), type="interval2") ~ log.n + log.hall,
   data=train.dt,
+  inits=c(1,1,0,0),
   dist="lnorm")
 
 ## DPsurvint np-bayesian: error Lapack routine dgesv: system is
@@ -67,10 +74,25 @@ fit.dp <- train.dt[, DPpackage::DPsurvint(
     m0=0,s0=1,tau1=0.01,tau2=0.01),
   status=TRUE)]
 
+bayes.mat <- log(icenReg::ic_sample(fit.bayes, test.dt, samples=500))
+bayes.vec <- apply(bayes.mat, 1, sd)
+
+par.mat <- log(icenReg::ic_sample(fit.par, test.dt, samples=500))
+par.vec <- apply(par.mat, 1, sd)
+
+## predictions have constant variance, as expected.
+rbind(bayes.vec, par.vec)
+
+library(ggplot2)
+ggplot()+
+  geom_segment(aes(
+    log.n, min.L,
+    xend=log.n, yend=max.L),
+    data=test.dt)
+
 rbind(
   icenReg.bayes=log(imputeCens(fit.bayes, test.dt, imputeType="median")),
   icenReg.par=log(imputeCens(fit.par, test.dt, imputeType="median")),
+  sample.mean.par=rowMeans(par.mat),
   survival=predict(fit.survival, test.dt),
-  penaltyLearning=as.numeric(predict(fit.penaltyLearning, test.dt[, cbind(log.n, log.hall)])))
-
-
+  penaltyLearning=as.numeric(predict(fit.penaltyLearning, test.dt[, cbind(log.n, log.hall)])))[, 1:5]

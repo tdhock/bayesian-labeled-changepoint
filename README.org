@@ -1,9 +1,16 @@
 ** TODOs
 
-- Plot distribution of predicted penalties, this should be possible
-  with survreg.
+- GP for censored regression with error bands that depend on the
+  inputs.
 
 ** 5 Apr 2019
+
+wrote some code to show error bands of predictions for linear model,
+[[file:figure-linear-error-bands.R]]
+
+[[file:figure-linear-error-bands.png]]
+
+[[file:figure-linear-error-bands-regression.png]]
 
 Read articles about interval-censored bayesian regression models with
 R packages but no regularization.
