@@ -3,6 +3,15 @@
 - GP for censored regression with error bands that depend on the
   inputs.
 
+** 12 Apr 2019
+
+[[file:figure-binomial-each-label.R]] creates figures for binomial
+likelihood to maximize (instead of minimizing 01 loss)
+
+[[file:figure-binomial-each-label-prob.png]]
+
+[[file:figure-binomial-each-label.png]]
+
 ** 5 Apr 2019
 
 wrote some code to show error bands of predictions for linear model,
@@ -25,4 +34,4 @@ less the same, [[file:icenReg-flexsurv.R]]
 reported issues 
 - [[file:flexsurv-bug.R]], https://github.com/chjackson/flexsurv-dev/issues/62
 - [[file:icenReg-bug.R]], https://github.com/pistacliffcho/icenReg_devel/issues/4
-- [[file:DPpackage-bug.R]] emailed maintainer, atjara@uc.cl
+- [[file:DPpackage-bug.R]] emailed maintainer, atjara@uc.cl, response: Please try with a older version of r. I am not updating the package and it seems that does not work with recent versions of r. Best, alejandro

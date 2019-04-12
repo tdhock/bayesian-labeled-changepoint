@@ -15,11 +15,19 @@ full.dt <- match.dt[, data.table(
     chromosome,
     y.mat, X.mat, set=ifelse(is.train, "train", "test"))]
 train.dt <- full.dt[is.train]
+X.train <- train.dt[, cbind(1, log2.n)]
 
 ## survival normal AFT frequentist.
 fit.survival <- survival::survreg(
   Surv(min.L, max.L, type="interval2") ~ log2.n,
   train.dt, dist="gaussian")
+cmat <- solve(t(X.train) %*% X.train) * fit.survival$scale
+cbind(weights=coef(fit.survival), se=diag(cmat))
+
+N <- 10
+x <- 1:N
+y <- rnorm(N)+x
+fit <- lm(y ~ x)
 
 targets.tall <- melt(
   full.dt,
