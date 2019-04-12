@@ -5,6 +5,14 @@
 
 ** 12 Apr 2019
 
+[[file:figure-binomial-each-problem.R]] creates
+
+[[file:figure-binomial-each-problem-prob-dots.png]]
+
+[[file:figure-binomial-each-problem-label.png]]
+
+[[file:figure-binomial-each-problem.png]]
+
 [[file:figure-binomial-each-label.R]] creates figures for binomial
 likelihood to maximize (instead of minimizing 01 loss)
 

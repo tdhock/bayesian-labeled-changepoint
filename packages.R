@@ -63,3 +63,10 @@ works_with_R(
   data.table="1.11.8",
   penaltyLearning="2018.9.4")
 library(survival)
+if(!requireNamespace("bams")){
+  if(!file.exists("bams_1.6.tar.gz")){
+    u <- "https://cran.r-project.org/src/contrib/Archive/bams/bams_1.6.tar.gz"
+    download.file(u, "bams_1.6.tar.gz")
+  }
+  install.packages("bams_1.6.tar.gz", type="source", repos=NULL)
+}
