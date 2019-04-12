@@ -224,7 +224,7 @@ gg <- ggplot()+
   theme_bw()+
   theme(panel.margin=grid::unit(0, "lines"))+
   facet_grid(metric ~ profile.id + chromosome, scales="free", labeller=label_both)+
-  xlab("")+
+  xlab("log(penalty)")+
   ylab("")+
   penaltyLearning::geom_tallrect(aes(
     xmin=min.log.lambda, xmax=max.log.lambda),
