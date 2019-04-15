@@ -2,12 +2,19 @@
 
 - GP for censored regression with error bands that depend on the
   inputs.
+- plot ordinal loss when there are two separate intervals with min
+  error.
+- plot ordinal loss for labeled sequences with more than one label.
 
 ** 15 Apr 2019
 
 [[file:figure-ordinal-loss.R]] creates
 
 [[file:figure-ordinal-loss.png]]
+
+[[file:figure-ordinal-loss-bounded.png]]
+
+[[file:figure-ordinal-loss-prob.png]]
 
 [[file:figure-ordinal.R]] creates
 

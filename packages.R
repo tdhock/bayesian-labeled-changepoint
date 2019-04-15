@@ -60,6 +60,7 @@ options(repos=c(
 works_with_R(
   "3.5.1",
   ggplot2="3.1.0",
+  jointseg="1.0.2",
   data.table="1.11.8",
   penaltyLearning="2018.9.4")
 library(survival)
