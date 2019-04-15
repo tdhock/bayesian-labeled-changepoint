@@ -5,6 +5,10 @@
 
 ** 15 Apr 2019
 
+[[file:figure-ordinal-loss.R]] creates
+
+[[file:figure-ordinal-loss.png]]
+
 [[file:figure-ordinal.R]] creates
 
 [[file:figure-ordinal.png]]
