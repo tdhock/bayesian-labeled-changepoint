@@ -3,6 +3,16 @@
 - GP for censored regression with error bands that depend on the
   inputs.
 
+** 15 Apr 2019
+
+[[file:figure-ordinal.R]] creates
+
+[[file:figure-ordinal.png]]
+
+[[file:figure-ordinal-selection.R]] creates
+
+[[file:figure-ordinal-selection.png]]
+
 ** 12 Apr 2019
 
 [[file:figure-binomial-each-problem.R]] creates

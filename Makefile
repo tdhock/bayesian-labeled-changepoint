@@ -1,3 +1,7 @@
+figure-ordinal-selection.png: figure-ordinal-selection.R
+	R --vanilla < $<
+figure-ordinal.png: figure-ordinal.R
+	R --vanilla < $<
 figure-binomial-each-problem.png: figure-binomial-each-problem.R
 	R --vanilla < $<
 figure-binomial-each-label.png: figure-binomial-each-label.R
