@@ -5,6 +5,11 @@
 - plot ordinal loss when there are two separate intervals with min
   error.
 - plot ordinal loss for labeled sequences with more than one label.
+** 22 Apr 2019
+
+What happens to the surrogate loss when we use max instead of mean
+(over all changepoint probabilities in region) to get the predicted
+probability of a breakpoint in a label? [[file:figure-ordinal-loss-max.R]]
 
 ** 15 Apr 2019
 
