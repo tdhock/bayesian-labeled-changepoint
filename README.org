@@ -11,6 +11,8 @@ What happens to the surrogate loss when we use max instead of mean
 (over all changepoint probabilities in region) to get the predicted
 probability of a breakpoint in a label? [[file:figure-ordinal-loss-max.R]]
 
+[[file:figure-ordinal-loss-max.png]]
+
 ** 15 Apr 2019
 
 [[file:figure-ordinal-loss.R]] creates

@@ -1,3 +1,5 @@
+figure-ordinal-loss-max.png: figure-ordinal-loss-max.R
+	R --vanilla < $<
 figure-ordinal-loss.png: figure-ordinal-loss.R
 	R --vanilla < $<
 figure-ordinal-selection.png: figure-ordinal-selection.R
