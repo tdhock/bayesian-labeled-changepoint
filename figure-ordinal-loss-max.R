@@ -51,35 +51,39 @@ model.changes <- segments.dt[, list(
   change.pos=segStart[-1]
 ), by=list(profile.id, chromosome, n.segments)]
 
+sel.changes <- model.changes[selection.dt, on=list(
+  profile.id, chromosome, n.segments), nomatch=0L]
+sel.changes[, change0 := change.pos]
+setkey(sel.changes, profile.id, chromosome, change.pos, change0)
+setkey(labels.possible, profile.id, chromosome, min, max)
+over.dt <- foverlaps(sel.changes, labels.possible, nomatch=0L)
+
 mynorm <- function(x, s)1/(1+exp(-s*x))
 range.vec <- selection.dt[, {
   l <- c(min.log.lambda, max.log.lambda)
   range(l[is.finite(l)])
 }]
-pred <- seq(range.vec[1]-10, range.vec[2]+10, l=1001)
+pred <- seq(range.vec[1]-10, range.vec[2]+10, l=201)
 pred.dt <- data.table(scale=c(0.5, 1, 2, 5, 50))[, {
   data.table(pred)[, {
-    data.table(selection.dt)[, {
-      prob <- mynorm(max.log.lambda-pred, scale)-mynorm(min.log.lambda-pred, scale)
-      prob.dt <- data.table(.SD, prob)[order(-prob)]
-      prob.dt[, cum.prob := cumsum(prob)]
-      result <- prob.dt[cum.prob < 0.99]
-      if(nrow(result)==0){
-        prob.dt[1]
-      }else{
-        result
-      }
-    }]
+    prob.dt <- data.table(over.dt)
+    prob.dt[, prob := mynorm(
+      max.log.lambda-pred, scale)-mynorm(min.log.lambda-pred, scale)]
+    my.dt <- prob.dt[, {
+      ##print(.SD)
+      ##browser()
+      list(
+        total.prob=sum(prob)
+    )}, by=list(
+      profile.id, chromosome, change.pos,
+      min, max, annotation, possible.changes)]
+    my.dt
   }, by=list(pred)]
 }, by=list(scale)]
 
-sel.changes <- model.changes[pred.dt, on=list(profile.id, chromosome, n.segments), allow.cartesian=TRUE, nomatch=0L]
-
 ## Now we have the predicted probability of every changepoint variable.
-mean.changes <- sel.changes[, {
-  list(
-    prob=mean(prob))
-}, by=list(profile.id, chromosome, pred, scale, change.pos)]
+pred.dt[, range(total.prob)]
+pred.dt[, hist(total.prob)]
 
 ## TODO compute mean/max prob over all changepoint variables in each labeled region.
 
